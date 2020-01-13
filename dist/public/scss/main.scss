@@ -1,0 +1,210 @@
+@import "./base/base";
+@import "./layout/layout";
+
+//**********PAGE SETTINGS**********//
+.bike-rent {
+   display: flex;
+}
+
+#map,
+.station {
+   height: 85vh; 
+}
+
+#map {
+   flex: 2;
+}
+
+.station {
+   flex: 1.25;
+   max-width: 400px;
+   margin: 0 1rem;
+   overflow: hidden;
+   &__details {
+      padding: 1rem;
+   }
+}
+
+.stationName {
+   padding-bottom: 10px;
+}
+
+.address {
+   text-transform: capitalize;
+}
+
+.address,
+.totalStands {
+   padding-bottom: 5px;
+}
+
+.station h3, 
+.station form div,
+.reservation,
+.canvas-container p {
+   text-align: center;
+}
+
+.canvas-container p {
+   margin: 1.3rem 0;
+   font-weight: 600;
+}
+
+.canvas-container button[type=reset] {
+   margin-top: 1.3rem;
+}
+
+.confirmation {
+   text-align: center;
+}
+
+form {
+   padding-top: 1rem;
+}
+
+.reservation {
+   height: 10vh; 
+   margin: 0;
+   padding-top: 1rem;
+   border-top: 1px solid $color-border;
+}
+
+.credit {
+   display: none;
+}
+
+//**********SUPERLARGESCREEN**********//
+@media all and (min-width: 1920px) {
+
+   .slider, 
+   .app {
+      margin-left: 20rem;
+      margin-right: 20rem;
+   }
+
+   // Slider text
+   .slide .content {
+      left: -40vw;
+      width: 31vw;
+   }
+   
+   .slide.current .content {
+      transform: translateX(42vw);
+   }
+
+}
+
+//************LARGESCREEN************//
+@media all and (min-width: 1024px) {
+
+   body,
+   .btn,
+   .btn-clear,
+   .slide .content .btnAnimation {
+      font-size: 24px;
+   }
+}
+
+//************SMALLSCREEN************//
+@media  all and (max-width: 690px) {
+
+   .slider, 
+   .app {
+      height: 100vh;
+      margin: inherit;
+   }
+
+   .bike-rent {
+      flex-direction: column;
+   }
+
+   #map, 
+   .station {
+      flex: inherit;
+   }
+
+   #map {
+      height: 56vh; 
+      width: 100%;
+      border-bottom: 1px solid $color-border;
+   }
+
+   .station {
+      height: 35vh; 
+      min-height: 230px; 
+      min-width: 300px;
+      margin: auto;
+      &__details {
+         padding: .6rem .6rem 0 .6rem;
+      }
+   }
+
+   .address,
+   .totalStands {
+   padding-bottom: 0px;
+   }
+
+   .station__details p,
+   .station__details form, 
+   .reservation,
+   .canvas-container p {
+      font-size: 14px;
+   }
+
+   .reservation {
+      height: 9vh;
+      margin: 0 1rem;
+      padding: .6rem;
+   }
+
+   h3 {
+      line-height: 1rem;
+      font-size: 16px;
+   }
+
+   form {
+      padding-top: .4rem;
+   }
+
+   input[type=text] {
+      width: 100%;
+      margin-bottom: .4rem;
+   }
+
+   .station button {
+      margin: .7rem;
+   }
+
+   .canvas-container div{
+      flex-direction: row;
+      justify-content: space-between;
+   }
+   
+   .canvas-container button {
+      position: absolute;
+      margin: 1.3rem 0;
+   }
+
+   .canvas-container button[type=submit] {
+      right: -28px;
+   }
+
+   .canvas-container button[type=reset] {
+      left: -28px;
+   }
+
+   .confirmation {
+      display: none;
+   }
+
+   // Slider text
+   .slide .content {
+      left: -84vw;
+      width: 84vw;
+   }
+   
+   .slide.current .content {
+      transform: translateX(92vw);
+   }
+
+}

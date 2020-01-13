@@ -1,0 +1,159 @@
+//************SLIDER************//
+.slider {
+   position: relative;
+   overflow: hidden;
+}
+
+.slide {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   transition: opacity 0.4s ease-in-out;
+}
+
+.slide.current {
+   opacity: 1;
+}
+
+.slide .content {
+   position: absolute;
+   top: 3vh;
+   left: -90vw;
+   opacity: 0;
+   width: 90vw;
+   background-color: rgba($color-text-btn, $alpha: 1);
+   padding: 5px 15px;
+}
+
+.slide .content h1,
+.slide .content h2 {
+   margin-bottom: 10px
+}
+
+.slide.current .content {
+   opacity: 1;
+   transform: translateX(93.5vw);
+   transition: all 0.7s ease-in-out 0.3s;
+}
+
+.buttons button#next {
+   position: absolute;
+   top: 50%;
+   right: 15px;
+}
+
+.buttons button#prev {
+   position: absolute;
+   top: 50%;
+   left: 15px;
+}
+
+.buttons button {
+   border: 2px solid $color-title;
+   background-color: $color-btn-slider;
+   color: $color-title;
+   cursor: pointer;
+   padding: 13px 15px;
+   border-radius: 50%;
+   transition: 0.3s ease-out;
+   &:hover {
+      background: $color-text-btn;
+   }
+}
+
+.content {
+   display: flex;
+   flex-direction: column;
+}
+
+.slide .content .btnAnimation {
+   justify-content: center;
+   margin: 2.5vh auto;
+}
+
+//*Background Images*//
+.slide:first-child {
+   background: url("/dist/public/images/1-undraw_Mobile_app_p3ts-MODIF.svg") no-repeat center center/contain;
+}
+.slide:nth-child(2) {
+   background: url("/dist/public/images/2-undraw_my_location_f9pr-MODIF.svg") no-repeat center center/contain;
+}
+.slide:nth-child(3) {
+   background: url("/dist/public/images/3-undraw_Map_dark_k9pwr-MODIF.svg") no-repeat center center/contain;
+}
+.slide:nth-child(4) {
+   background: url("/dist/public/images/4-undraw_mobile_login_ikmvr-MODIF.svg") no-repeat center center/contain;
+}
+.slide:nth-child(5) {
+   background: url("/dist/public/images/5-undraw_order_confirmed_1m3vr-MODIF.svg") no-repeat center center/contain;
+}
+
+//************FORM************//
+input:focus,
+button:focus {
+   outline: none;
+}
+
+input[type=text] {
+   width: 100%;
+   margin: auto;
+   margin-bottom: .8rem;
+   padding: 5px; 
+   border: 1px solid $color-input;
+   border-radius: 3px;
+}
+
+input[type=text]:focus {
+   border-color: $color-title;
+}
+
+.btn,
+.btn-clear,
+.btnAnimation {
+   margin: 2.5vh;
+   padding:5px 15px; 
+   border: none;
+   border-radius: 5px;
+   background: $color-btn;
+   color: $color-text-btn;
+   font-family: 'Muli', sans-serif;
+   font-size: $font-size;
+   font-weight: 800;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: .3s ease-in;
+   &:hover {
+      opacity: .75;
+   }
+}
+
+.btn-clear {
+   background: $color-text;
+}
+
+.canvas-container {
+   position: relative;
+   left: 0px;
+   top: 0px;
+   width: 213px;
+   margin: 0 auto;
+   margin-top: 5px;
+}
+
+#canvas {
+   border: 1.5px solid black;
+   touch-action: none;
+}
+
+.canvas-container div{
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
+}
+
+.canvas-container button {
+   margin: .5rem 0;
+}

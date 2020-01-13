@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1142.4 1440" style="enable-background:new 0 0 1142.4 1440;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#FFFFFF;}
+	.st2{fill:#FF6347;}
+	.st3{clip-path:url(#SVGID_3_);}
+	.st4{fill:url(#SVGID_4_);}
+	.st5{opacity:0.1;enable-background:new    ;}
+	.st6{fill:#FF5252;}
+	.st7{fill:#3ACC6C;}
+	.st8{opacity:0.2;enable-background:new    ;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="565.5" y1="1098.4598" x2="565.5" y2="424.1599" gradientTransform="matrix(1 0 0 1 0 160.7401)">
+	<stop  offset="0" style="stop-color:#808080;stop-opacity:0.25"/>
+	<stop  offset="0.5351" style="stop-color:#808080;stop-opacity:0.12"/>
+	<stop  offset="1" style="stop-color:#808080;stop-opacity:0.1"/>
+</linearGradient>
+<polygon class="st0" points="859.1,1232.8 699.3,1232.8 427.2,1259.2 153,1232.8 153,584.9 426,604.7 705,584.9 978,622.4 
+	970.9,1119.9 "/>
+<polygon class="st1" points="853.9,1223.8 697.6,1223.8 431.4,1249.5 163.2,1223.8 163.2,593.4 430.3,612.7 703.2,593.4 
+	970.1,629.9 963.3,1114 "/>
+<polygon class="st2" points="854.7,1206.6 690.2,1206.6 439.1,1230.9 186.1,1206.6 186.1,612 438,630.2 695.4,612 947.2,646.4 
+	947.2,1113.6 "/>
+<g>
+	<g>
+		<defs>
+			<polygon id="SVGID_2_" points="854.7,1206.6 690.2,1206.6 439.1,1230.9 186.1,1206.6 186.1,612 438,630.2 695.4,612 947.2,646.4 
+				947.2,1113.6 			"/>
+		</defs>
+		<clipPath id="SVGID_3_">
+			<use xlink:href="#SVGID_2_"  style="overflow:visible;"/>
+		</clipPath>
+		<g class="st3">
+			<polygon class="st1" points="1172,1385.1 594.1,1065.1 740.9,577.3 690.9,557.5 619.8,793.9 53,480 30,534.6 602.4,851.6 
+				471.7,1285.8 521.7,1305.6 576.7,1122.8 1149.1,1439.8 			"/>
+		</g>
+	</g>
+</g>
+<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="903.2" y1="1062.0599" x2="903.2" y2="939.3598" gradientTransform="matrix(1 0 0 1 0 160.7401)">
+	<stop  offset="0" style="stop-color:#000000;stop-opacity:0.12"/>
+	<stop  offset="0.5513" style="stop-color:#000000;stop-opacity:9.000000e-02"/>
+	<stop  offset="1" style="stop-color:#000000;stop-opacity:2.000000e-02"/>
+</linearGradient>
+<polygon class="st4" points="843.1,1222.8 845,1100.1 963.3,1104.8 "/>
+<polygon class="st1" points="186.1,869 548.8,1029.6 573,1079.6 549,1104.6 186.1,932.5 "/>
+<polygon class="st1" points="853.9,1222.8 855.6,1109.6 963.3,1114 "/>
+<polygon class="st1" points="679,1127.6 830.3,630.5 890.5,638.7 721,1153.6 "/>
+<polyline class="st5" points="438,1230.9 690,1206.6 690,612 438,630.2 "/>
+<polygon class="st1" points="814.7,869 947.2,903 947.2,966.5 785,908.6 "/>
+<polygon class="st1" points="309.4,991 276,1222.6 314,1230.6 364,1016.9 364,986.6 "/>
+<polygon class="st1" points="308.1,688.6 270.5,906.4 299.6,922.1 369,688.6 "/>
+<circle class="st6" cx="380" cy="645.6" r="8"/>
+<ellipse class="st6" cx="284" cy="1059.5" rx="8" ry="8"/>
+<circle class="st6" cx="276" cy="1118.6" r="8"/>
+<circle class="st6" cx="361" cy="1104.6" r="8"/>
+<circle class="st6" cx="224" cy="864.6" r="8"/>
+<circle class="st6" cx="854" cy="856.6" r="8"/>
+<circle class="st6" cx="785" cy="1134.6" r="8"/>
+<path class="st7" d="M681,838.4c0,53.9-97.6,174-97.6,174s-97.6-120.1-97.6-174s43.7-97.6,97.6-97.6
+	C637.3,740.8,681,784.5,681,838.4z"/>
+<circle class="st8" cx="583.4" cy="834.2" r="57.7"/>
+</svg>
