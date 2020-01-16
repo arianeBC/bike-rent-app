@@ -145,6 +145,7 @@ const addInputField = (e) => {
 
    if(required()) {
       localStorage.setItem("savedFormValues", JSON.stringify(inputField) );
+      sessionStorage.setItem("availableBikes", availableBikes);
       showCanvas();
    };
 };
@@ -161,14 +162,6 @@ const addReservation = (e) => {
    var getSavedFormValues = JSON.parse(localStorage.getItem("savedFormValues"));
    var reservationElt = "Vélo réservé à la station " + getSavedFormValues.stationName + " par " + getSavedFormValues.inputFirstName + " " + getSavedFormValues.inputName;
 
-      // Return to homepage
-   const showForm = () => {
-      if (stationDetails.style.display = "none") {
-         stationDetails.style.display = "block";
-      }
-      canvasContainer.style.display = "none";
-   };
-
    // Check if canvas's blank
    const isCanvasBlank = (canvas) => {
       const context = canvas.getContext("2d");
@@ -176,6 +169,14 @@ const addReservation = (e) => {
          context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
       )
       return !pixelBuffer.some(color => color !== 0);
+   };
+
+      // Return to homepage
+   const showForm = () => {
+      if (stationDetails.style.display = "none") {
+         stationDetails.style.display = "block";
+      }
+      canvasContainer.style.display = "none";
    };
 
    const signature = () => {
@@ -190,11 +191,11 @@ const addReservation = (e) => {
    };
 
    if(signature()) {
-      showForm();
       document.querySelector(".reservation__details").innerHTML = reservationElt;
+      showForm();
    };
-
    startCountdown();
+   sessionStorage.setItem("currentReservation", reservationElt);
 };
 
 document.addEventListener("DOMContentLoaded", () => {

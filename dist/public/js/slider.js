@@ -69,6 +69,15 @@ window.addEventListener("load", createSlider = () =>{
       slideInterval = setInterval(nextSlide, intervalTime);
    });
 
+   document.addEventListener("keydown", function(e){
+      if(e.keyCode === 37){
+         prevSlide();
+      }
+      else if(e.keyCode === 39){
+         nextSlide();
+      }
+      });
+
    slider.addEventListener("mouseover",  e => {
       mouseOver();
    });

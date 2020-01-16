@@ -45,5 +45,11 @@ var countDownDate = datePlusMinutes();
          sessionStorage.removeItem("reservationCountDown");
       }
    }, 1000);
-
+   // During countdown remove 1 bike
+   var getAvailableBikes = sessionStorage.getItem("availableBikes");
+   var matches = getAvailableBikes.match(/(\d+)/); 
+   if (matches) {
+      document.querySelector('.availableBikes').innerHTML = matches[0] - 1 + " vélos disponibles";
+   }
+      
 };
