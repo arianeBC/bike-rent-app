@@ -1,8 +1,10 @@
-function slider() {
+window.addEventListener("load", createSlider = () =>{
+
    const slider = document.querySelector(".slider");
    const slides = document.querySelectorAll(".slide");
    const next = document.querySelector("#next");
    const prev = document.querySelector("#prev");
+   const auto = true;
    const intervalTime = 5000;
    let slideInterval;
 
@@ -81,10 +83,8 @@ function slider() {
       touchEnd();
    });
 
-   slideInterval = setInterval(nextSlide, intervalTime);
+   if(auto) {
+      slideInterval = setInterval(nextSlide, intervalTime);
+   }
 
-};
-
-window.onload = slider;
-
-
+});

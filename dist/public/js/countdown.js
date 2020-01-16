@@ -34,8 +34,9 @@ var countDownDate = datePlusMinutes();
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
+      // slice(-2) returns the last two characters of a string
       sessionStorage.setItem("reservationCountDown", minutes + ":" + seconds);
-      document.querySelector(".reservation__time").innerHTML = "Expire dans " + minutes + ":" + seconds + " minutes";
+      document.querySelector(".reservation__time").innerHTML = "Expire dans " + ("0"+minutes).slice(-2) + ":" + ("0"+seconds).slice(-2) + " minutes";
 
       // If the count down is finished, write some text
       if (distance < 0) {
