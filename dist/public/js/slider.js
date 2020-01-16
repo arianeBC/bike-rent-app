@@ -43,6 +43,7 @@ window.addEventListener("load", createSlider = () =>{
    };
    
    const mouseOut = () => {
+      clearInterval(slideInterval);
       slideInterval = setInterval(nextSlide, intervalTime);
    };
 
@@ -51,6 +52,7 @@ window.addEventListener("load", createSlider = () =>{
    };
    
    const touchEnd = () => {
+      clearInterval(slideInterval);
       slideInterval = setInterval(nextSlide, intervalTime);
    };
 
