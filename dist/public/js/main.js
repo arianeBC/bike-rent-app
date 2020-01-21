@@ -1,58 +1,67 @@
-window.addEventListener("load", createMap = () =>{
-   // Map
-   const toulouse = [43.6044622, 1.4442469];
-   const mymap = L.map('map').setView(toulouse, 17);
+class CreateMap {
+   constructor() {
+      // Map
+      this.toulouse = [43.6044622, 1.4442469];
+      this.mymap = L.map('map').setView(this.toulouse, 17);
 
-   // Map layer(style)
-   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJpYW5lYmMiLCJhIjoiY2s0OWNpeGliMDNnaTNkbzdpNWFxdHVrdSJ9.m7kpXFCpYTSPVj2I8Q2E6Q', {
-      maxZoom: 22,
-      id: 'mapbox/streets-v11',
-   }).addTo(mymap);
+      // Map layer(style)
+      L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJpYW5lYmMiLCJhIjoiY2s0OWNpeGliMDNnaTNkbzdpNWFxdHVrdSJ9.m7kpXFCpYTSPVj2I8Q2E6Q', {
+         maxZoom: 22,
+         id: 'mapbox/streets-v11',
+      }).addTo(this.mymap);
 
-   // Personnalized marker
-   var LeafIcon = L.Icon.extend({
-      options: {
-         iconSize:     [34, 47.5], 
-         iconAnchor:   [17, 47.5], 
-         popupAnchor:  [-3, -76] 
-      }
-   });
+      // Personnalized marker
+      this.LeafIcon = L.Icon.extend({
+         options: {
+            iconSize:     [34, 47.5], 
+            iconAnchor:   [17, 47.5], 
+            popupAnchor:  [-3, -76] 
+         }
+      });
 
-   var greenIcon = new LeafIcon({iconUrl: "/dist/public/images/makerGreen.png"}),
-      redIcon = new LeafIcon({iconUrl: "/dist/public/images/makerRed.png"}),
-      orangeIcon = new LeafIcon({iconUrl: "/dist/public/images/makerOrange.png"});
+      this.greenIcon = new this.LeafIcon({iconUrl: "/dist/public/images/makerGreen.png"}),
+      this.redIcon = new this.LeafIcon({iconUrl: "/dist/public/images/makerRed.png"}),
+      this.orangeIcon = new this.LeafIcon({iconUrl: "/dist/public/images/makerOrange.png"});
 
-   // JCDecaux API
-   var request = new XMLHttpRequest();
+      // JCDecaux API
+      this.request = new XMLHttpRequest();
+      this.request.onreadystatechange = this.myRequest();
+      this.request.open("GET", "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e");
+      this.request.send();
+   };
 
-   request.onreadystatechange = function() {
+   myRequest() {
+      console.log("world");
       if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-         var response = JSON.parse(this.responseText);
-         response.forEach(function (info) {
 
-            const latitude = info.position.lat;
-            const longitude = info.position.lng;
+         this.response = JSON.parse(this.responseText);
+
+         this.response.forEach(function (info) {
+
+            this.latitude = info.position.lat;
+            this.longitude = info.position.lng;
             if (info.available_bikes === 0) {
-            L.marker([latitude, longitude], {icon: redIcon}).on('click', onMarkerClick).addTo(mymap);
+            L.marker([this.latitude, this.longitude], {icon: redIcon}).on('click', onMarkerClick).addTo(this.mymap);
             } else {
-               L.marker([latitude, longitude], {icon: greenIcon}).on('click', onMarkerClick).addTo(mymap);
+               L.marker([latitude, longitude], {icon: greenIcon}).on('click', onMarkerClick).addTo(this.mymap);
             };
             if (info.available_bikes <= 3 && info.available_bikes !== 0) {
-               L.marker([latitude, longitude], {icon: orangeIcon}).on('click', onMarkerClick).addTo(mymap);
+               L.marker([latitude, longitude], {icon: orangeIcon}).on('click', onMarkerClick).addTo(this.mymap);
+               
             };
 
             function onMarkerClick(e) {
                if ((e.latlng.lat === info.position.lat) && (e.latlng.lng === info.position.lng)) {
-                  var stationElt = info.name;
-                  var addressElt = "Adresse : " + info.address;
-                  var standsElt = info.bike_stands + " places";
-                  var bikesElt = info.available_bikes + " vélos disponibles";
+                  this.stationElt = info.name;
+                  this.addressElt = "Adresse : " + info.address;
+                  this.standsElt = info.bike_stands + " places";
+                  this.bikesElt = info.available_bikes + " vélos disponibles";
 
                   //remove numbers of stationElt
-                  stationElt = stationElt.substring(stationElt.indexOf("-") + 1);
+                  this.stationElt = this.stationElt.substring(stationElt.indexOf("-") + 1);
 
                   //capitalize words of adressElt
-                  const capitalize_Words = (str) => {
+                  capitalize_Words = (str) => {
                   return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
                   };
                   
@@ -67,12 +76,10 @@ window.addEventListener("load", createMap = () =>{
       };
    };
 
-   request.open("GET", "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e");
-   request.send();
+};
 
-});
 
-// Animation => slide to app
+// ********** Animation => slide to app ********** //
 function smoothScroll(target,duration) {
    var target = document.querySelector(target);
    var targetPosition = target.getBoundingClientRect().top;
@@ -110,7 +117,7 @@ var getSavedFormValues = JSON.parse(localStorage.getItem("savedFormValues"));
 document.forms["save-later-form"].elements["name"].value = getSavedFormValues.inputName;
 document.forms["save-later-form"].elements["firstName"].value = getSavedFormValues.inputFirstName; 
 
-//Form => reservation button
+// ********** Form => reservation button ********** //
 const addInputField = (e) => {
    e.preventDefault();
    var canvasContainer = document.querySelector(".canvas-container");
@@ -122,6 +129,7 @@ const addInputField = (e) => {
          canvasContainer.style.display = "block";
          stationDetails.style.display = "none";
       }
+      new Canvas(210, 100);
    };
 
    let inputField = {
@@ -154,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
    document.querySelector("#save-later-form button").addEventListener("click", addInputField);
 });
 
-//Form => confirmation button 
+// ********** Form => confirmation button ********** //
 const addReservation = (e) => {
    e.preventDefault();
    var canvasContainer = document.querySelector(".canvas-container");
@@ -194,10 +202,87 @@ const addReservation = (e) => {
       document.querySelector(".reservation__details").innerHTML = reservationElt;
       showForm();
    };
-   startCountdown();
+   new Countdown(20);
    sessionStorage.setItem("currentReservation", reservationElt);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
    document.querySelector(".canvas-container button[type=submit]").addEventListener("click", addReservation);
 });
+
+
+window.addEventListener("load", new Slider);
+window.addEventListener("load", new CreateMap);
+
+
+
+//  // Map
+// const toulouse = [43.6044622, 1.4442469];
+// const mymap = L.map('map').setView(toulouse, 17);
+
+//  // Map layer(style)
+//  L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYXJpYW5lYmMiLCJhIjoiY2s0OWNpeGliMDNnaTNkbzdpNWFxdHVrdSJ9.m7kpXFCpYTSPVj2I8Q2E6Q', {
+//     maxZoom: 22,
+//     id: 'mapbox/streets-v11',
+//  }).addTo(mymap);
+
+//  // Personnalized marker
+//  var LeafIcon = L.Icon.extend({
+//     options: {
+//        iconSize:     [34, 47.5], 
+//        iconAnchor:   [17, 47.5], 
+//        popupAnchor:  [-3, -76] 
+//     }
+//  });
+
+//  var greenIcon = new LeafIcon({iconUrl: "/dist/public/images/makerGreen.png"}),
+//     redIcon = new LeafIcon({iconUrl: "/dist/public/images/makerRed.png"}),
+//     orangeIcon = new LeafIcon({iconUrl: "/dist/public/images/makerOrange.png"});
+
+//  // JCDecaux API
+//  var request = new XMLHttpRequest();
+
+//  request.onreadystatechange = function() {
+//     if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
+//        var response = JSON.parse(this.responseText);
+//        response.forEach(function (info) {
+
+//           const latitude = info.position.lat;
+//           const longitude = info.position.lng;
+//           if (info.available_bikes === 0) {
+//           L.marker([latitude, longitude], {icon: redIcon}).on('click', onMarkerClick).addTo(mymap);
+//           } else {
+//              L.marker([latitude, longitude], {icon: greenIcon}).on('click', onMarkerClick).addTo(mymap);
+//           };
+//           if (info.available_bikes <= 3 && info.available_bikes !== 0) {
+//              L.marker([latitude, longitude], {icon: orangeIcon}).on('click', onMarkerClick).addTo(mymap);
+//           };
+
+//           function onMarkerClick(e) {
+//              if ((e.latlng.lat === info.position.lat) && (e.latlng.lng === info.position.lng)) {
+//                 var stationElt = info.name;
+//                 var addressElt = "Adresse : " + info.address;
+//                 var standsElt = info.bike_stands + " places";
+//                 var bikesElt = info.available_bikes + " vélos disponibles";
+
+//                 //remove numbers of stationElt
+//                 stationElt = stationElt.substring(stationElt.indexOf("-") + 1);
+
+//                 //capitalize words of adressElt
+//                 const capitalize_Words = (str) => {
+//                 return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+//                 };
+
+//                 document.querySelector('.stationName').innerHTML = stationElt;
+//                 document.querySelector('.address').innerHTML = capitalize_Words(addressElt);
+//                 document.querySelector('.totalStands').innerHTML = standsElt;
+//                 document.querySelector('.availableBikes').innerHTML = bikesElt;
+//                 mymap.setView(e.latlng, 17);
+//              };
+//           };
+//        });
+//     };
+//  };
+
+//  request.open("GET", "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e");
+//  request.send();

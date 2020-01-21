@@ -1,14 +1,57 @@
-window.addEventListener("load", createSlider = () =>{
+class Slider {
+   constructor() {
+      const slider = document.querySelector(".slider");
+      this.slides = document.querySelectorAll(".slide");
+      const next = document.querySelector("#next");
+      const prev = document.querySelector("#prev");
+      this.auto = true;
+      this.intervalTime = 5000;
+      this.slideInterval;
 
-   const slider = document.querySelector(".slider");
-   const slides = document.querySelectorAll(".slide");
-   const next = document.querySelector("#next");
-   const prev = document.querySelector("#prev");
-   const auto = true;
-   const intervalTime = 5000;
-   let slideInterval;
+      // Button events
+      next.addEventListener("click", e => {
+         this.nextSlide();
+         clearInterval(this.slideInterval);
+         this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+      });
 
-   const nextSlide = () => {
+      prev.addEventListener("click", e => {
+         this.prevSlide();
+         clearInterval(this.slideInterval);
+         this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+      });
+
+      document.addEventListener("keydown", e => {
+         if(e.keyCode === 37){
+            this.prevSlide();
+         }
+         else if(e.keyCode === 39){
+            this.nextSlide();
+         }
+         });
+
+      slider.addEventListener("mouseover",  e => {
+         this.mouseOver();
+      });
+
+      slider.addEventListener("mouseout",  e => {
+         this.mouseOut();
+      });
+
+      slider.addEventListener("touchstart",  e => {
+         this.touchStart();
+      });
+
+      slider.addEventListener("touchend",  e => {
+         this.touchEnd();
+      });
+
+      if(this.auto) {
+         this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+      }
+   };
+
+   nextSlide() {
       // Get current class
       const current = document.querySelector(".current");
       // Remove current class
@@ -19,11 +62,11 @@ window.addEventListener("load", createSlider = () =>{
          current.nextElementSibling.classList.add("current");
       } else {
          // Add current to start
-         slides[0].classList.add("current");
+         this.slides[0].classList.add("current");
       }
    };
 
-   const prevSlide = () => {
+   prevSlide() {
       // Get current class
       const current = document.querySelector(".current");
       // Remove current class
@@ -34,68 +77,26 @@ window.addEventListener("load", createSlider = () =>{
          current.previousElementSibling.classList.add("current");
       } else {
          // Add current to last
-         slides[slides.length - 1].classList.add("current");
+         this.slides[slides.length - 1].classList.add("current");
       }
    };
 
-   const mouseOver = () => {
-      clearInterval(slideInterval);
+   mouseOver() {
+      clearInterval(this.slideInterval);
    };
    
-   const mouseOut = () => {
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, intervalTime);
+   mouseOut() {
+      clearInterval(this.slideInterval);
+      this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
    };
 
-   const touchStart = () => {
-      clearInterval(slideInterval);
+   touchStart() {
+      clearInterval(this.slideInterval);
    };
    
-   const touchEnd = () => {
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, intervalTime);
+   touchEnd() {
+      clearInterval(this.slideInterval);
+      this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
    };
 
-   // Button events
-   next.addEventListener("click", e => {
-      nextSlide();
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, intervalTime);
-   });
-
-   prev.addEventListener("click", e => {
-      prevSlide();
-      clearInterval(slideInterval);
-      slideInterval = setInterval(nextSlide, intervalTime);
-   });
-
-   document.addEventListener("keydown", function(e){
-      if(e.keyCode === 37){
-         prevSlide();
-      }
-      else if(e.keyCode === 39){
-         nextSlide();
-      }
-      });
-
-   slider.addEventListener("mouseover",  e => {
-      mouseOver();
-   });
-
-   slider.addEventListener("mouseout",  e => {
-      mouseOut();
-   });
-
-   slider.addEventListener("touchstart",  e => {
-      touchStart();
-   });
-
-   slider.addEventListener("touchend",  e => {
-      touchEnd();
-   });
-
-   if(auto) {
-      slideInterval = setInterval(nextSlide, intervalTime);
-   }
-
-});
+};
