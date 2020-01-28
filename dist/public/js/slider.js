@@ -1,24 +1,22 @@
 class Slider {
    constructor() {
       const slider = document.querySelector(".slider");
-      this.slides = document.querySelectorAll(".slide");
-      const next = document.querySelector("#next");
-      const prev = document.querySelector("#prev");
-      this.auto = true;
+      this.slides  = document.querySelectorAll(".slide");
+      const next   = document.querySelector("#next");
+      const prev   = document.querySelector("#prev");
+      this.auto    = true;
       this.intervalTime = 5000;
       this.slideInterval;
 
       // Button events
       next.addEventListener("click", e => {
          this.nextSlide();
-         clearInterval(this.slideInterval);
-         this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+         this.startInterval();
       });
 
       prev.addEventListener("click", e => {
          this.prevSlide();
-         clearInterval(this.slideInterval);
-         this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+         this.startInterval();
       });
 
       document.addEventListener("keydown", e => {
@@ -47,9 +45,15 @@ class Slider {
       });
 
       if(this.auto) {
-         this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+         this.startInterval();
       }
    };
+
+   //set interval
+   startInterval() {
+      clearInterval(this.slideInterval);
+      this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+   }
 
    nextSlide() {
       // Get current class
@@ -86,8 +90,7 @@ class Slider {
    };
    
    mouseOut() {
-      clearInterval(this.slideInterval);
-      this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+      this.startInterval();
    };
 
    touchStart() {
@@ -95,8 +98,7 @@ class Slider {
    };
    
    touchEnd() {
-      clearInterval(this.slideInterval);
-      this.slideInterval = setInterval(this.nextSlide.bind(this), this.intervalTime);
+      this.startInterval();
    };
 
 };

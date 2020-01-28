@@ -1,18 +1,20 @@
 class Countdown {
-   constructor(minute) {
+   constructor(seconde) {
    // reset CountDown
    this.btnConfirm = document.querySelector(".canvas-container div button[type=submit]");
    let reset = () => clearInterval(x);
    this.btnConfirm.addEventListener("click", reset);
 
    // Add minutes to current date
-   Date.prototype.addMins = function(m) {     
-      this.setTime(this.getTime() + (m*60*1000));  
+   Date.prototype.addMins = function(s) {     
+      // this.setTime(this.getTime() + (m*60*1000));  
+      this.setTime(this.getTime() + (s*1000));  
       return this;    
    };
+
    this.datePlusMinutes = function() { 
       var a = new Date(); 
-      a.addMins(minute); 
+      a.addMins(seconde);
       return a;
    };
 
@@ -33,7 +35,7 @@ class Countdown {
 
       //Add to sessionStorage;
       const pluriel = (minutes > 1) ? "s" : "";
-      sessionStorage.setItem("reservationCountdown", `${minutes} : ${seconds}`);
+      sessionStorage.setItem("reservationCountdown", `${minutes*60 + seconds}`);
       document.querySelector(".reservation__time").innerHTML = `Expire dans ${("0" + minutes).slice(-2)}:${("0" + seconds).slice(-2)} minute${pluriel} `;
 
       // If the count down is finished, write some text

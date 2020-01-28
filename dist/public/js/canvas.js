@@ -1,11 +1,11 @@
 class Canvas {
    constructor(width, height) {
-      this.canvas = document.querySelector("#canvas");
-      this.context = this.canvas.getContext("2d");
-      this.clearButton = document.querySelector(".btn-clear");
-      this.canvas.width = width;
+      this.canvas        = document.querySelector("#canvas");
+      this.context       = this.canvas.getContext("2d");
+      this.clearButton   = document.querySelector(".btn-clear");
+      this.canvas.width  = width;
       this.canvas.height = height;
-      this.drawing = false;
+      this.drawing       = false;
       //EventListeners
       this.canvas.addEventListener("mousedown", this.startPosition.bind(this));
       this.canvas.addEventListener("mouseup", this.finishedPosition.bind(this));
