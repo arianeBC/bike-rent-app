@@ -75,7 +75,6 @@ function smoothScroll(target,duration) {
 
    function animation(currentTime) {
       if(startTime === null) startTime = currentTime;
-      console.log(startTime - currentTime);
       var timeElapsed = currentTime - startTime;
       var run = ease(timeElapsed, startPosition, distance, duration);
       window.scrollTo(0, run);
@@ -149,10 +148,6 @@ const addInputField = (e) => {
    };
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-   document.querySelector("#save-later-form button").addEventListener("click", addInputField);
-});
-
 // ********** Form => confirmation button ********** //
 const addReservation = (e) => {
    e.preventDefault();
@@ -163,6 +158,7 @@ const addReservation = (e) => {
    var reservationElt     = `Vélo réservé à la station ${stationName} par ${getSavedFormValues.inputFirstName} ${getSavedFormValues.inputName}`;
 
    // Check if canvas's blank
+   //// returns true if every pixel's uint32 representation is 0 (or "blank")
    const isCanvasBlank = (canvas) => {
       const context     = canvas.getContext("2d");
       const pixelBuffer = new Uint32Array(
@@ -201,11 +197,15 @@ const addReservation = (e) => {
 
 //Event Listeners
 //animation
-var btnAnimation = document.querySelector(".btnAnimation"); // Selector to start animation
+let btnAnimation = document.querySelector(".btnAnimation"); // Selector to start animation
 btnAnimation.addEventListener('click', function(){
    smoothScroll('.app', 1000)
 });
 
+//localStorage
+document.addEventListener("DOMContentLoaded", () => {
+   document.querySelector("#save-later-form button").addEventListener("click", addInputField);
+});
 //reservation
 document.addEventListener("DOMContentLoaded", () => {
    document.querySelector(".canvas-container button[type=submit]").addEventListener("click", addReservation);
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //slider
 window.addEventListener("load", new Slider);
 //map
-var jcDecauxUrl = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e";
+let jcDecauxUrl = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e";
 window.addEventListener("load", new CreateMap(jcDecauxUrl));
 //restart countdown (refresh)
 let reservationCountdown = sessionStorage.getItem("reservationCountdown");
