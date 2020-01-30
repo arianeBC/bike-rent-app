@@ -45,6 +45,9 @@ class Countdown {
       sessionStorage.removeItem("reservationCountdown");
       sessionStorage.removeItem("currentReservation");
       sessionStorage.removeItem("availableBikes");
+      sessionStorage.removeItem("totalStands");
+      sessionStorage.removeItem("address");
+      sessionStorage.removeItem("stationName");
       }
    }, 1000);
 
@@ -53,10 +56,10 @@ class Countdown {
 
    removeReservedBike() {
    let getAvailableBikes = sessionStorage.getItem("availableBikes");
-   const pluriel = (document.querySelector('.availableBikes') > 1) ? "s" : "";
    let matches = getAvailableBikes.match(/(\d+)/); 
       if (matches) {
+         const pluriel = (document.querySelector('.availableBikes') > 1) ? "s" : "";
          document.querySelector('.availableBikes').innerHTML = `${matches[0] - 1} vélo${pluriel} disponible${pluriel}`;
-      }
+      } 
    };
 };

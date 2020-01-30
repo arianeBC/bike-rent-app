@@ -65,7 +65,7 @@ class CreateMap {
    };
 };
 
-// ********** Animation => slide to app ********** //
+// Animation --slide to app
 function smoothScroll(target,duration) {
    var target = document.querySelector(target);
    var targetPosition = target.getBoundingClientRect().top;
@@ -75,37 +75,34 @@ function smoothScroll(target,duration) {
 
    function animation(currentTime) {
       if(startTime === null) startTime = currentTime;
+      console.log(startTime - currentTime);
       var timeElapsed = currentTime - startTime;
       var run = ease(timeElapsed, startPosition, distance, duration);
       window.scrollTo(0, run);
       if(timeElapsed < duration) requestAnimationFrame(animation);
-   }
+   };
 
    function ease(t, b, c, d) {
       t /= d / 2;
       if (t < 1) return c / 2 * t * t + b;
       t--;
       return -c / 2 * (t * (t - 2) - 1) + b;
-   }
+   };
 
    requestAnimationFrame(animation);
 };
 
-var btnAnimation = document.querySelector(".btnAnimation"); 
-btnAnimation.addEventListener('click', function(){
-   smoothScroll('.app', 1000)
-});
-
 // Layout app
 document.querySelector(".canvas-container").style.display = "none";
+let getSavedFormValues = JSON.parse(localStorage.getItem("savedFormValues"));
+let stationName        = sessionStorage.getItem("stationName");
+let reservationElt     = `Vélo réservé à la station ${stationName} par ${getSavedFormValues.inputFirstName} ${getSavedFormValues.inputName}`;
 // Auto named inputs
-var getSavedFormValues = JSON.parse(localStorage.getItem("savedFormValues"));
 if (getSavedFormValues) {
    document.forms["save-later-form"].elements["name"].value = getSavedFormValues.inputName
-};
-if (getSavedFormValues) {
    document.forms["save-later-form"].elements["firstName"].value = getSavedFormValues.inputFirstName
-}; 
+};
+
 
 // ********** Form => reservation button ********** //
 const addInputField = (e) => {
@@ -141,9 +138,13 @@ const addInputField = (e) => {
    };
 
    if(required()) {
+      let addressElt = document.querySelector(".address").innerHTML;
+      let totalStandsElt = document.querySelector(".totalStands").innerHTML;
       localStorage.setItem("savedFormValues", JSON.stringify(inputField) );
       sessionStorage.setItem("availableBikes", availableBikes);
       sessionStorage.setItem("stationName", stationName);
+      sessionStorage.setItem("address", addressElt);
+      sessionStorage.setItem("totalStands", totalStandsElt);
       showCanvas();
    };
 };
@@ -155,15 +156,15 @@ document.addEventListener("DOMContentLoaded", () => {
 // ********** Form => confirmation button ********** //
 const addReservation = (e) => {
    e.preventDefault();
-   var canvasContainer = document.querySelector(".canvas-container");
-   var stationDetails = document.querySelector(".station__details");
+   var canvasContainer    = document.querySelector(".canvas-container");
+   var stationDetails     = document.querySelector(".station__details");
    var getSavedFormValues = JSON.parse(localStorage.getItem("savedFormValues"));
-   let stationName = sessionStorage.getItem("stationName");
-   var reservationElt = `Vélo réservé à la station ${stationName} par ${getSavedFormValues.inputFirstName} ${getSavedFormValues.inputName}`;
+   let stationName        = sessionStorage.getItem("stationName");
+   var reservationElt     = `Vélo réservé à la station ${stationName} par ${getSavedFormValues.inputFirstName} ${getSavedFormValues.inputName}`;
 
    // Check if canvas's blank
    const isCanvasBlank = (canvas) => {
-      const context = canvas.getContext("2d");
+      const context     = canvas.getContext("2d");
       const pixelBuffer = new Uint32Array(
          context.getImageData(0, 0, canvas.width, canvas.height).data.buffer
       )
@@ -198,15 +199,32 @@ const addReservation = (e) => {
 
 };
 
+//Event Listeners
+//animation
+var btnAnimation = document.querySelector(".btnAnimation"); // Selector to start animation
+btnAnimation.addEventListener('click', function(){
+   smoothScroll('.app', 1000)
+});
+
+//reservation
 document.addEventListener("DOMContentLoaded", () => {
    document.querySelector(".canvas-container button[type=submit]").addEventListener("click", addReservation);
 });
-
-var jcDecauxUrl = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e";
-
+//slider
 window.addEventListener("load", new Slider);
+//map
+var jcDecauxUrl = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e";
 window.addEventListener("load", new CreateMap(jcDecauxUrl));
-
+//restart countdown (refresh)
 let reservationCountdown = sessionStorage.getItem("reservationCountdown");
-if (reservationCountdown) stopCount = reservationCountdown;
-window.addEventListener("load", new Countdown(stopCount));
+if (reservationCountdown) {
+   stopCount = reservationCountdown;
+   window.addEventListener("load", new Countdown(stopCount));
+   let addressElt = sessionStorage.getItem("address");
+   let totalStandsElt = sessionStorage.getItem("totalStands");
+   document.querySelector(".reservation__details").innerHTML = reservationElt;
+   document.querySelector(".stationName").innerHTML = stationName;
+   document.querySelector(".address").innerHTML = addressElt;
+   document.querySelector(".totalStands").innerHTML = totalStandsElt;
+};
+

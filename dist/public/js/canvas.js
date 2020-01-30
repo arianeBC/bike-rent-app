@@ -32,8 +32,8 @@ class Canvas {
       if(!this.drawing) return;
       let rect = this.canvas.getBoundingClientRect();
       this.context.lineWidth = 3;
-      this.context.lineCap = "round";
-      this.context.lineJoin = "round";
+      this.context.lineCap   = "round";
+      this.context.lineJoin  = "round";
       this.context.lineTo(e.clientX - rect.left, e.clientY- rect.top);
       this.context.stroke();
       this.context.beginPath();
@@ -54,8 +54,8 @@ class Canvas {
       let rect = this.canvas.getBoundingClientRect();
       let touch = e.touches[0];
       this.context.lineWidth = 3;
-      this.context.lineCap = "round";
-      this.context.lineJoin = "round";
+      this.context.lineCap   = "round";
+      this.context.lineJoin  = "round";
       this.context.lineTo(touch.clientX - rect.left, touch.clientY- rect.top);
       this.context.stroke();
       this.context.beginPath();

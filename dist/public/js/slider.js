@@ -81,7 +81,7 @@ class Slider {
          current.previousElementSibling.classList.add("current");
       } else {
          // Add current to last
-         this.slides[slides.length - 1].classList.add("current");
+         this.slides[this.slides.length - 1].classList.add("current");
       }
    };
 
