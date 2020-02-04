@@ -28,11 +28,11 @@ function smoothScroll(target,duration) {
 document.querySelector(".canvas-container").style.display = "none";
 let getSavedFormValues = JSON.parse(localStorage.getItem("savedFormValues"));
 let stationName        = sessionStorage.getItem("stationName");
-let reservationElt     = `Vélo réservé à la station ${stationName} par ${getSavedFormValues.inputFirstName} ${getSavedFormValues.inputName}`;
+
 // Auto named inputs
 if (getSavedFormValues) {
-   document.forms["save-later-form"].elements["name"].value = getSavedFormValues.inputName
-   document.forms["save-later-form"].elements["firstName"].value = getSavedFormValues.inputFirstName
+   document.forms["save-later-form"].elements["name"].value = getSavedFormValues.inputName;
+   document.forms["save-later-form"].elements["firstName"].value = getSavedFormValues.inputFirstName;
 };
 
 
@@ -155,6 +155,7 @@ if (reservationCountdown) {
    window.addEventListener("load", new Countdown(stopCount));
    let addressElt = sessionStorage.getItem("address");
    let totalStandsElt = sessionStorage.getItem("totalStands");
+   let reservationElt     = `Vélo réservé à la station ${stationName} par ${getSavedFormValues.inputFirstName} ${getSavedFormValues.inputName}`;
    document.querySelector(".reservation__details").innerHTML = reservationElt;
    document.querySelector(".stationName").innerHTML = stationName;
    document.querySelector(".address").innerHTML = addressElt;
