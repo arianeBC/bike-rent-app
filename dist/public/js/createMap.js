@@ -14,7 +14,7 @@ class CreateMap {
       this.LeafIcon = L.Icon.extend({
          options: {
             iconSize:     [34, 47.5], 
-            iconAnchor:   [17, 47.5], 
+            iconAnchor:   [17, 47.5],
             popupAnchor:  [-3, -76] 
          }
       });

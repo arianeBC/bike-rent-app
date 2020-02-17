@@ -4,6 +4,7 @@ class Slider {
       this.slides  = document.querySelectorAll(".slide");
       const next   = document.querySelector("#next");
       const prev   = document.querySelector("#prev");
+      const pause  = document.querySelector("#pause");
       this.auto    = true;
       this.intervalTime = 5000;
       this.slideInterval;
@@ -28,14 +29,6 @@ class Slider {
          }
          });
 
-      slider.addEventListener("mouseover",  e => {
-         this.mouseOver();
-      });
-
-      slider.addEventListener("mouseout",  e => {
-         this.mouseOut();
-      });
-
       slider.addEventListener("touchstart",  e => {
          this.touchStart();
       });
@@ -45,8 +38,14 @@ class Slider {
       });
 
       if(this.auto) {
-         this.startInterval();
-      }
+         this.startSlider();
+      };
+
+      pause.onclick = () => {
+         if(this.auto){ this.pauseSlider(); }
+         else{ this.startSlider(); }
+      };
+
    };
 
    //set interval
@@ -85,11 +84,15 @@ class Slider {
       }
    };
 
-   mouseOver() {
+   pauseSlider() {
+      pause.innerHTML = '<i class="fas fa-play"></i>'
+      this.auto = false;
       clearInterval(this.slideInterval);
    };
    
-   mouseOut() {
+   startSlider() {
+      pause.innerHTML = '<i class="fas fa-pause">'
+      this.auto = true;
       this.startInterval();
    };
 

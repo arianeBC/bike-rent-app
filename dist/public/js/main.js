@@ -108,6 +108,7 @@ const addReservation = (e) => {
       canvasContainer.style.display = "none";
       document.querySelector(".reservation__details").innerHTML = reservationElt;
       sessionStorage.setItem("currentReservation", reservationElt);
+      sessionStorage.removeItem("reservationEnd");
       new Countdown(1200);
    };
 
@@ -149,9 +150,9 @@ window.addEventListener("load", new Slider);
 let jcDecauxUrl = "https://api.jcdecaux.com/vls/v1/stations?contract=Toulouse&apiKey=f67f16fd73dc90a271e02178de2d6f71c7a7826e";
 window.addEventListener("load", new CreateMap(jcDecauxUrl));
 //restart countdown (refresh)
-let reservationCountdown = sessionStorage.getItem("reservationCountdown");
-if (reservationCountdown) {
-   stopCount = reservationCountdown;
+let reservationEnd = sessionStorage.getItem("reservationEnd");
+if (reservationEnd) {
+   stopCount = reservationEnd;
    window.addEventListener("load", new Countdown(stopCount));
    let addressElt = sessionStorage.getItem("address");
    let totalStandsElt = sessionStorage.getItem("totalStands");

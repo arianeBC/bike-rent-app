@@ -5,21 +5,26 @@ class Countdown {
    let reset = () => clearInterval(x);
    this.btnConfirm.addEventListener("click", reset);
 
-   // Add minutes to current date
-   Date.prototype.addMins = function(s) {     
-      // this.setTime(this.getTime() + (m*60*1000));  
-      this.setTime(this.getTime() + (s*1000));  
+   // Add secondes to current date
+   Date.prototype.addSecondes = function(s) {     
+      // this.setTime(this.getTime() + (m*60*1000));
+      this.setTime(this.getTime() + (s*1000));
       return this;    
    };
 
-   this.datePlusMinutes = function() { 
+   this.datePlusSecondes = function() { 
       var a = new Date(); 
-      a.addMins(seconde);
+      a.addSecondes(seconde);
       return a;
    };
 
    // Set the date we're counting down to
-   this.countDownDate = this.datePlusMinutes();
+   if (sessionStorage.getItem("reservationEnd")) {
+      this.countDownDate = new Date(sessionStorage.getItem("reservationEnd"));
+   } else {
+      this.countDownDate = this.datePlusSecondes();
+      sessionStorage.setItem("reservationEnd", `${this.countDownDate}`);
+   }
 
    //setinterval
    const x = setInterval(() => {
@@ -28,14 +33,12 @@ class Countdown {
 
       // Find the distance between now and the count down date
       const distance = this.countDownDate - this.now;
-
       // Time calculations for days, hours, minutes and seconds
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       //Add to sessionStorage;
       const pluriel = (minutes > 1) ? "s" : "";
-      sessionStorage.setItem("reservationCountdown", `${minutes*60 + seconds}`);
       document.querySelector(".reservation__time").innerHTML = `Expire dans ${("0" + minutes).slice(-2)}:${("0" + seconds).slice(-2)} minute${pluriel} `;
 
       // If the count down is finished, write some text
@@ -56,9 +59,9 @@ class Countdown {
 
    removeReservedBike() {
    let getAvailableBikes = sessionStorage.getItem("availableBikes");
-   let matches = getAvailableBikes.match(/(\d+)/); 
+   let matches = getAvailableBikes.match(/(\d+)/);
       if (matches) {
-         const pluriel = (document.querySelector('.availableBikes') > 1) ? "s" : "";
+         const pluriel = (Number(matches[0]) > 1) ? "s" : "";
          document.querySelector('.availableBikes').innerHTML = `${matches[0] - 1} vélo${pluriel} disponible${pluriel}`;
       } 
    };

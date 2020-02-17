@@ -30,6 +30,10 @@ h1, h2, h3 {
   overflow: hidden;
 }
 
+.slider:hover + .buttons #pause {
+  opacity: 0.6;
+}
+
 .slide {
   position: absolute;
   top: 0;
@@ -78,6 +82,19 @@ h1, h2, h3 {
   position: absolute;
   top: 50%;
   left: 15px;
+}
+
+.buttons button#pause {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: scale(2, 2);
+          transform: scale(2, 2);
+  opacity: 0;
+}
+
+.buttons button#pause:hover {
+  opacity: 0.9;
 }
 
 .buttons button {
@@ -338,7 +355,7 @@ form {
   }
   .station {
     height: 35vh;
-    min-height: 230px;
+    min-height: 280px;
     min-width: 300px;
     margin: auto;
   }
